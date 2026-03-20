@@ -1,34 +1,67 @@
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
+=======
+import './Home.css';
+>>>>>>> 4124635 (3월20일 1차)
 
 export default function Home() {
   const heroSets = [
     {
       left: '/images/hero/hero1.jpg',
+<<<<<<< HEAD
       center: '/images/hero/hero2.jpg',
       right: '/images/hero/hero3.jpg',
+=======
+      center: '/images/hero/hero3.jpg',
+      right: '/images/hero/hero2.jpg',
+>>>>>>> 4124635 (3월20일 1차)
       season: '2026 SPRING COLLECTION',
       title: 'SIAROOM',
       subtitle: 'modern feminine archive',
       index: '01',
     },
     {
+<<<<<<< HEAD
       left: '/images/hero/hero2.jpg',
       center: '/images/hero/hero3.jpg',
       right: '/images/hero/hero1.jpg',
+=======
+      left: '/images/hero/hero5.jpg',
+      center: '/images/hero/hero6.jpg',
+      right: '/images/hero/hero4.jpg',
+>>>>>>> 4124635 (3월20일 1차)
       season: 'NEW SEASON DROP',
       title: 'SIAROOM',
       subtitle: 'cozy mood daily wear',
       index: '02',
     },
     {
+<<<<<<< HEAD
       left: '/images/hero/hero3.jpg',
       center: '/images/hero/hero1.jpg',
       right: '/images/hero/hero2.jpg',
+=======
+      left: '/images/hero/hero7.jpg',
+      center: '/images/hero/hero8.jpg',
+      right: '/images/hero/hero9.jpg',
+>>>>>>> 4124635 (3월20일 1차)
       season: 'SIGNATURE LOOKBOOK',
       title: 'SIAROOM',
       subtitle: 'structured casual edit',
       index: '03',
     },
+<<<<<<< HEAD
+=======
+    {
+      left: '/images/hero/hero10.jpg',
+      center: '/images/hero/hero11.jpg',
+      right: '/images/hero/hero12.jpg',
+      season: 'SIGNATURE LOOKBOOK',
+      title: 'SIAROOM',
+      subtitle: 'modern feminine archive',
+      index: '04',
+    },
+>>>>>>> 4124635 (3월20일 1차)
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,6 +81,10 @@ export default function Home() {
       <div style={styles.columns}>
         <div style={{ ...styles.column, ...styles.leftColumn }}>
           <div
+<<<<<<< HEAD
+=======
+            className="hero-image-left"
+>>>>>>> 4124635 (3월20일 1차)
             style={{
               ...styles.imagePanel,
               backgroundImage: `url(${currentSet.left})`,
@@ -57,7 +94,12 @@ export default function Home() {
         </div>
 
         <div style={{ ...styles.column, ...styles.centerColumn }}>
+<<<<<<< HEAD
           <div
+=======
+         <div
+            className="hero-image-center"
+>>>>>>> 4124635 (3월20일 1차)
             style={{
               ...styles.imagePanel,
               backgroundImage: `url(${currentSet.center})`,
@@ -68,6 +110,10 @@ export default function Home() {
 
         <div style={{ ...styles.column, ...styles.rightColumn }}>
           <div
+<<<<<<< HEAD
+=======
+            className="hero-image-right"
+>>>>>>> 4124635 (3월20일 1차)
             style={{
               ...styles.imagePanel,
               backgroundImage: `url(${currentSet.right})`,
@@ -149,8 +195,13 @@ const styles = {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
+<<<<<<< HEAD
     transform: 'scale(1.02)',
     transition: 'background-image 0.8s ease-in-out, transform 1.2s ease',
+=======
+    willChange: 'transform',
+    transition: 'background-image 0.8s ease-in-out',
+>>>>>>> 4124635 (3월20일 1차)
   },
   sideShade: {
     position: 'absolute',

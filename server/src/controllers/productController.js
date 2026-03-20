@@ -55,6 +55,11 @@ const getProductDetail = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4124635 (3월20일 1차)
 module.exports = {
   getProducts,
   getProductDetail

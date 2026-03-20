@@ -1,16 +1,42 @@
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ShoppingBag, User, Search, X } from 'lucide-react';
 
 export default function Header() {
   const location = useLocation();
+=======
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingBag, User, Search, X } from 'lucide-react';
+import { isLoggedIn, logout } from '../utils/auth';
+import { fetchCart } from '../services/cartService';
+
+export default function Header() {
+  const location = useLocation();
+  const navigate = useNavigate();
+>>>>>>> 4124635 (3월20일 1차)
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [hoverMenu, setHoverMenu] = useState(null);
+<<<<<<< HEAD
 
   const isHome = location.pathname === '/';
 
+=======
+  const [cartCount, setCartCount] = useState(0);
+
+  const isHome = location.pathname === '/';
+  const loggedIn = isLoggedIn();
+
+  const handleLogout = () => {
+    logout();
+    setCartCount(0);
+    window.dispatchEvent(new Event('cartUpdated'));
+    alert('로그아웃되었습니다.');
+    navigate('/');
+  };
+>>>>>>> 4124635 (3월20일 1차)
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 24);
@@ -37,6 +63,23 @@ export default function Header() {
     setHoverMenu(null);
   }, [location.pathname]);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    loadCartCount();
+
+    const handleCartUpdated = () => {
+      loadCartCount();
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdated);
+
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdated);
+    };
+  }, [loggedIn]);
+
+>>>>>>> 4124635 (3월20일 1차)
   const menuItems = [
     { label: 'BEST', path: '/best' },
     { label: 'NEW', path: '/new' },
@@ -151,6 +194,36 @@ export default function Header() {
     console.log('검색어:', searchKeyword);
   };
 
+<<<<<<< HEAD
+=======
+  const handleUserClick = () => {
+    if (loggedIn) {
+      navigate('/mypage');
+    } else {
+      navigate('/login');
+    }
+  };
+
+  const loadCartCount = async () => {
+    if (!loggedIn) {
+      setCartCount(0);
+      return;
+    }
+
+    try {
+      const data = await fetchCart();
+      const totalCount = (data.items || []).reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
+      setCartCount(totalCount);
+    } catch (error) {
+      console.error('장바구니 개수 조회 실패:', error);
+      setCartCount(0);
+    }
+  };
+
+>>>>>>> 4124635 (3월20일 1차)
   const currentDropdown = hoverMenu ? dropdownContent[hoverMenu] : null;
 
   return (
@@ -229,6 +302,50 @@ export default function Header() {
           <div style={styles.center} />
 
           <div style={styles.right}>
+<<<<<<< HEAD
+=======
+            {!loggedIn && (
+              <Link
+                to="/signup"
+                style={{
+                  textDecoration: 'none',
+                  color: effectiveTextColor,
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  textShadow:
+                    useLightTheme && !hoverMenu
+                      ? '0 2px 12px rgba(0,0,0,0.18)'
+                      : 'none',
+                }}
+              >
+                SIGN UP
+              </Link>
+            )}
+
+            {loggedIn && (
+              <button
+                type="button"
+                onClick={handleLogout}
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  padding: 0,
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: effectiveTextColor,
+                  textShadow:
+                    useLightTheme && !hoverMenu
+                      ? '0 2px 12px rgba(0,0,0,0.18)'
+                      : 'none',
+                }}
+              >
+                LOGOUT
+              </button>
+            )}
+                
+
+>>>>>>> 4124635 (3월20일 1차)
             <button
               type="button"
               aria-label="장바구니"
@@ -239,7 +356,13 @@ export default function Header() {
                   useLightTheme && !hoverMenu
                     ? '0 2px 12px rgba(0,0,0,0.18)'
                     : 'none',
+<<<<<<< HEAD
               }}
+=======
+                position: 'relative',
+              }}
+              onClick={() => navigate('/cart')}
+>>>>>>> 4124635 (3월20일 1차)
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-1px)';
                 e.currentTarget.style.opacity = '0.72';
@@ -250,11 +373,22 @@ export default function Header() {
               }}
             >
               <ShoppingBag size={18} strokeWidth={1.7} />
+<<<<<<< HEAD
+=======
+
+              {cartCount > 0 && (
+                <span style={styles.cartBadge}>{cartCount}</span>
+              )}
+>>>>>>> 4124635 (3월20일 1차)
             </button>
 
             <button
               type="button"
+<<<<<<< HEAD
               aria-label="마이페이지"
+=======
+              aria-label={loggedIn ? '마이페이지' : '로그인'}
+>>>>>>> 4124635 (3월20일 1차)
               style={{
                 ...styles.iconButton,
                 color: effectiveTextColor,
@@ -263,6 +397,10 @@ export default function Header() {
                     ? '0 2px 12px rgba(0,0,0,0.18)'
                     : 'none',
               }}
+<<<<<<< HEAD
+=======
+              onClick={handleUserClick}
+>>>>>>> 4124635 (3월20일 1차)
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-1px)';
                 e.currentTarget.style.opacity = '0.72';
@@ -647,4 +785,24 @@ const styles = {
     fontSize: '13px',
     cursor: 'pointer',
   },
+<<<<<<< HEAD
+=======
+  cartBadge: {
+    position: 'absolute',
+    top: '-8px',
+    right: '-10px',
+    minWidth: '18px',
+    height: '18px',
+    padding: '0 5px',
+    borderRadius: '999px',
+    backgroundColor: '#111',
+    color: '#fff',
+    fontSize: '11px',
+    fontWeight: 700,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    lineHeight: 1,
+  },
+>>>>>>> 4124635 (3월20일 1차)
 };

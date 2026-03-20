@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { useParams } from 'react-router-dom';
 import { getProductDetail } from '../api/productApi';
 
 export default function ProductDetail() {
   const { id } = useParams();
+=======
+import { useNavigate, useParams } from 'react-router-dom';
+import { getProductDetail } from '../api/productApi';
+import { addCart } from '../services/cartService';
+import { isLoggedIn } from '../utils/auth';
+
+export default function ProductDetail() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+>>>>>>> 4124635 (3월20일 1차)
   const [data, setData] = useState(null);
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -11,6 +22,10 @@ export default function ProductDetail() {
     const fetchProductDetail = async () => {
       try {
         const result = await getProductDetail(id);
+<<<<<<< HEAD
+=======
+        console.log('상품상세 응답:', result);
+>>>>>>> 4124635 (3월20일 1차)
         setData(result.data);
       } catch (error) {
         console.error('상품 상세 조회 실패:', error);
@@ -21,11 +36,52 @@ export default function ProductDetail() {
   }, [id]);
 
   if (!data) {
+<<<<<<< HEAD
     return <div style={{ padding: '140px 20px' }}>상품 정보를 불러오는 중입니다...</div>;
   }
 
   const { product, images, options, reviews, inquiries } = data;
   const displayPrice = product.sale_price || product.price;
+=======
+  return <div style={{ padding: '140px 20px' }}>상품 정보를 불러오는 중입니다...</div>;
+  }
+
+  if (!data.product) {
+    return <div style={{ padding: '140px 20px' }}>상품 데이터 구조를 확인해주세요.</div>;
+  }
+    const product = data.product;
+    const images = data.images || data.product?.images || [];
+    const options = data.options || data.product?.options || [];
+    const reviews = data.reviews || [];
+    const inquiries = data.inquiries || [];
+  
+  const displayPrice = product.sale_price || product.price;
+  const handleAddCart = async () => {
+    if (!isLoggedIn()) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+      return;
+    }
+
+    if (!selectedOption) {
+      alert('옵션을 선택해주세요.');
+      return;
+    }
+
+    try {
+      await addCart({
+        product_option_id: Number(selectedOption),
+        quantity: 1,
+      });
+
+      window.dispatchEvent(new Event('cartUpdated'));
+      alert('장바구니에 추가되었습니다.');
+    } catch (error) {
+      console.error('장바구니 추가 실패:', error);
+      alert(error?.response?.data?.message || '장바구니 추가에 실패했습니다.');
+    }
+  };
+>>>>>>> 4124635 (3월20일 1차)
 
   return (
     <div style={styles.page}>
@@ -84,7 +140,13 @@ export default function ProductDetail() {
           </div>
 
           <div style={styles.buttonRow}>
+<<<<<<< HEAD
             <button style={styles.cartButton}>장바구니</button>
+=======
+            <button style={styles.cartButton} onClick={handleAddCart}>
+              장바구니
+            </button>
+>>>>>>> 4124635 (3월20일 1차)
             <button style={styles.buyButton}>바로구매</button>
           </div>
         </div>
